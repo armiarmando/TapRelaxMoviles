@@ -16,7 +16,7 @@ class PaginaInicial extends StatelessWidget {
             },
             onSelected: (String value) {
               if (value == "acercade") {
-                AlertaPersonalizada();
+                _mostrarAlerta(context);
               }
             },
           )
@@ -25,13 +25,29 @@ class PaginaInicial extends StatelessWidget {
       body: Center(child: Text('xd')),
     );
   }
+
+  void _mostrarAlerta(BuildContext context) {
+    showDialog(
+      context: context,
+      builder: (context) {
+        return AlertDialog(
+          content: AcercaDe(),
+          actions: [
+            IconButton(
+                icon: Icon(Icons.check),
+                onPressed: () => Navigator.pop(context))
+          ],
+          elevation: 24.0,
+        );
+      },
+    );
+  }
 }
 
 class AlertaPersonalizada extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return AlertDialog(
-      title: Text("Tap Relax"),
       content: AcercaDe(),
       actions: [
         IconButton(
@@ -44,18 +60,20 @@ class AlertaPersonalizada extends StatelessWidget {
 class AcercaDe extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return Container(
-        child: Column(
+    return Column(
       children: [
         Text(
           "Tap Relax",
           textAlign: TextAlign.center,
           style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
         ),
-        Text(
-          "Versión 1.0",
-          textAlign: TextAlign.center,
-          style: TextStyle(fontSize: 10),
+        Padding(
+          child: Text(
+            "Versión 1.0",
+            textAlign: TextAlign.center,
+            style: TextStyle(fontSize: 10),
+          ),
+          padding: EdgeInsets.all(16.0),
         ),
         Text(
           "Programación y diseño",
@@ -73,6 +91,7 @@ class AcercaDe extends StatelessWidget {
           style: TextStyle(fontSize: 15, fontWeight: FontWeight.bold),
         ),
       ],
-    ));
+      mainAxisSize: MainAxisSize.min,
+    );
   }
 }
