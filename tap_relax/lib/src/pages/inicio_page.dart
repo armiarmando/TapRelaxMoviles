@@ -1,21 +1,19 @@
 import 'package:flutter/material.dart';
 
-import 'package:tap_relax/src/pages/juego_1.dart';
-import 'package:tap_relax/src/pages/juego_2.dart';
-import 'package:tap_relax/src/pages/juego_3.dart';
-
 class PaginaInicial extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        body: PageView(
-      controller: PageController(viewportFraction: .85),
-      physics: BouncingScrollPhysics(),
-      children: <Widget>[
-        Paginas(Colors.blue, "Juego1"),
-        Paginas(Colors.blueAccent, "Juego2"),
-        Paginas(Colors.lightBlueAccent, "Juego3"),
-      ],
+        body: Container(
+      child: PageView(
+        controller: PageController(viewportFraction: .85),
+        physics: BouncingScrollPhysics(),
+        children: <Widget>[
+          Paginas(Colors.blue, "Juego1"),
+          Paginas(Colors.blueAccent, "Juego2"),
+          Paginas(Colors.lightBlueAccent, "Juego3"),
+        ],
+      ),
     ));
   }
 }
@@ -29,16 +27,20 @@ class Paginas extends StatelessWidget {
   Widget build(BuildContext context) {
     return GestureDetector(
       child: Container(
+        child: DecoratedBox(
+          decoration: BoxDecoration(
+              image: DecorationImage(
+                  fit: BoxFit.contain, image: AssetImage("assets/$pag.jpg"))),
+        ),
         height: double.infinity,
         width: double.infinity,
-        margin: EdgeInsets.all(20),
+        margin: EdgeInsets.only(top: 150, bottom: 30, left: 5),
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(20),
           color: this.color,
         ),
       ),
-      onTap: () {
-        print("Estoy apretando el boton para el juego $pag");
+      onDoubleTap: () {
         Navigator.of(context).pushNamed(pag);
       },
     );

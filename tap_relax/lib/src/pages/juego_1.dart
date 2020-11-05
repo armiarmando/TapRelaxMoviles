@@ -4,25 +4,13 @@ class Juego1 extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: scroll(context),
-    );
-  }
-
-  Widget scroll(BuildContext context) {
-    return GestureDetector(
-      child: Container(
-        height: double.infinity,
-        width: double.infinity,
-        margin: EdgeInsets.all(20),
-        decoration: BoxDecoration(
-          borderRadius: BorderRadius.circular(20),
-          color: Colors.blue,
+        body: Center(
+          child: Text("Hola perrotes del Juego 1"),
         ),
-      ),
-      onTap: () {
-        print("Estoy apretando el boton 1");
-        Navigator.of(context).pushNamed('Juego1');
-      },
-    );
+        floatingActionButton: FloatingActionButton(
+            child: Icon(Icons.arrow_back),
+            onPressed: () {
+              Navigator.pop(context);
+            }));
   }
 }

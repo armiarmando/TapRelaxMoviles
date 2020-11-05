@@ -3,14 +3,14 @@ import 'package:flutter/material.dart';
 class Juego2 extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return Container(
-      height: double.infinity,
-      width: double.infinity,
-      margin: EdgeInsets.all(20),
-      decoration: BoxDecoration(
-        borderRadius: BorderRadius.circular(20),
-        color: Colors.black,
-      ),
-    );
+    return Scaffold(
+        body: Center(
+          child: Text("Hola perrotes del Juego 2"),
+        ),
+        floatingActionButton: FloatingActionButton(
+            child: Icon(Icons.arrow_back),
+            onPressed: () {
+              Navigator.pop(context);
+            }));
   }
 }
