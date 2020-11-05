@@ -1,78 +1,46 @@
 import 'package:flutter/material.dart';
 
+import 'package:tap_relax/src/pages/juego_1.dart';
+import 'package:tap_relax/src/pages/juego_2.dart';
+import 'package:tap_relax/src/pages/juego_3.dart';
+
 class PaginaInicial extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: const Text('Tap Relax'),
-        actions: [
-          PopupMenuButton(
-            itemBuilder: (BuildContext context) {
-              return <PopupMenuEntry<String>>[
-                PopupMenuItem<String>(
-                    child: Text("Acerca de"), value: "acercade")
-              ];
-            },
-            onSelected: (String value) {
-              if (value == "acercade") {
-                AlertaPersonalizada();
-              }
-            },
-          )
-        ],
-      ),
-      body: Center(child: Text('xd')),
-    );
-  }
-}
-
-class AlertaPersonalizada extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    return AlertDialog(
-      title: Text("Tap Relax"),
-      content: AcercaDe(),
-      actions: [
-        IconButton(
-            icon: Icon(Icons.check), onPressed: () => Navigator.pop(context))
-      ],
-    );
-  }
-}
-
-class AcercaDe extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-        child: Column(
-      children: [
-        Text(
-          "Tap Relax",
-          textAlign: TextAlign.center,
-          style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
-        ),
-        Text(
-          "Versión 1.0",
-          textAlign: TextAlign.center,
-          style: TextStyle(fontSize: 10),
-        ),
-        Text(
-          "Programación y diseño",
-          textAlign: TextAlign.center,
-          style: TextStyle(fontSize: 15),
-        ),
-        Text(
-          "Erick Moreno",
-          textAlign: TextAlign.center,
-          style: TextStyle(fontSize: 15, fontWeight: FontWeight.bold),
-        ),
-        Text(
-          "Armando Gutiérrez",
-          textAlign: TextAlign.center,
-          style: TextStyle(fontSize: 15, fontWeight: FontWeight.bold),
-        ),
+        body: PageView(
+      controller: PageController(viewportFraction: .85),
+      physics: BouncingScrollPhysics(),
+      children: <Widget>[
+        Paginas(Colors.blue, "Juego1"),
+        Paginas(Colors.blueAccent, "Juego2"),
+        Paginas(Colors.lightBlueAccent, "Juego3"),
       ],
     ));
+  }
+}
+
+class Paginas extends StatelessWidget {
+  final Color color;
+  final String pag;
+  const Paginas(this.color, this.pag);
+
+  @override
+  Widget build(BuildContext context) {
+    return GestureDetector(
+      child: Container(
+        height: double.infinity,
+        width: double.infinity,
+        margin: EdgeInsets.all(20),
+        decoration: BoxDecoration(
+          borderRadius: BorderRadius.circular(20),
+          color: this.color,
+        ),
+      ),
+      onTap: () {
+        print("Estoy apretando el boton para el juego $pag");
+        Navigator.of(context).pushNamed(pag);
+      },
+    );
   }
 }
