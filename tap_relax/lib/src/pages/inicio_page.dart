@@ -44,19 +44,6 @@ class PaginaInicial extends StatelessWidget {
   }
 }
 
-class AlertaPersonalizada extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    return AlertDialog(
-      content: AcercaDe(),
-      actions: [
-        IconButton(
-            icon: Icon(Icons.check), onPressed: () => Navigator.pop(context))
-      ],
-    );
-  }
-}
-
 class AcercaDe extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
