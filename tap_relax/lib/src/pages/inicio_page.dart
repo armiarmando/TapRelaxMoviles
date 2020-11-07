@@ -3,8 +3,11 @@ import 'package:flutter/material.dart';
 class PaginaInicial extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-        body: Container(
+    return Scaffold(body: _pageView());
+  }
+
+  Widget _pageView() {
+    return Container(
       child: PageView(
         controller: PageController(viewportFraction: .85),
         physics: BouncingScrollPhysics(),
@@ -14,7 +17,7 @@ class PaginaInicial extends StatelessWidget {
           Paginas(Colors.lightBlueAccent, "Juego3"),
         ],
       ),
-    ));
+    );
   }
 }
 
