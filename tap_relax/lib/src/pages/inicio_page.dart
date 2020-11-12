@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 class PaginaInicial extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
+<<<<<<< HEAD
     return Scaffold(
       appBar: AppBar(
         title: const Text('Tap Relax'),
@@ -20,12 +21,26 @@ class PaginaInicial extends StatelessWidget {
               }
             },
           )
+=======
+    return Scaffold(body: _pageView());
+  }
+
+  Widget _pageView() {
+    return Container(
+      child: PageView(
+        controller: PageController(viewportFraction: .85),
+        physics: BouncingScrollPhysics(),
+        children: <Widget>[
+          Paginas(Colors.blue, "Juego1"),
+          Paginas(Colors.blueAccent, "Juego2"),
+          Paginas(Colors.lightBlueAccent, "Juego3"),
+>>>>>>> 702eec94aa8a27804ef817744316695785038f9d
         ],
       ),
-      body: Center(child: Text('xd')),
     );
   }
 
+<<<<<<< HEAD
   void _mostrarAlerta(BuildContext context) {
     showDialog(
       context: context,
@@ -43,10 +58,16 @@ class PaginaInicial extends StatelessWidget {
     );
   }
 }
+=======
+class Paginas extends StatelessWidget {
+  final Color color;
+  final String pag;
+  const Paginas(this.color, this.pag);
+>>>>>>> 702eec94aa8a27804ef817744316695785038f9d
 
-class AcercaDe extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
+<<<<<<< HEAD
     return Column(
       children: [
         Text(
@@ -66,12 +87,23 @@ class AcercaDe extends StatelessWidget {
           "Programación y diseño",
           textAlign: TextAlign.center,
           style: TextStyle(fontSize: 15),
+=======
+    return GestureDetector(
+      child: Container(
+        child: DecoratedBox(
+          decoration: BoxDecoration(
+              image: DecorationImage(
+                  fit: BoxFit.contain, image: AssetImage("assets/$pag.jpg"))),
+>>>>>>> 702eec94aa8a27804ef817744316695785038f9d
         ),
-        Text(
-          "Erick Moreno",
-          textAlign: TextAlign.center,
-          style: TextStyle(fontSize: 15, fontWeight: FontWeight.bold),
+        height: double.infinity,
+        width: double.infinity,
+        margin: EdgeInsets.only(top: 150, bottom: 30, left: 5),
+        decoration: BoxDecoration(
+          borderRadius: BorderRadius.circular(20),
+          color: this.color,
         ),
+<<<<<<< HEAD
         Text(
           "Armando Gutiérrez",
           textAlign: TextAlign.center,
@@ -79,6 +111,12 @@ class AcercaDe extends StatelessWidget {
         ),
       ],
       mainAxisSize: MainAxisSize.min,
+=======
+      ),
+      onDoubleTap: () {
+        Navigator.of(context).pushNamed(pag);
+      },
+>>>>>>> 702eec94aa8a27804ef817744316695785038f9d
     );
   }
 }
