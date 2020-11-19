@@ -1,5 +1,7 @@
 import 'package:dots_indicator/dots_indicator.dart';
 import 'package:flutter/material.dart';
+import 'package:tap_relax/src/resources/acerca_de.dart';
+import 'package:tap_relax/src/resources/paginas.dart';
 
 class PaginaInicial extends StatefulWidget {
   @override
@@ -25,6 +27,8 @@ class _PaginaInicialState extends State<PaginaInicial> {
               children: getLayoutElements(context),
             )
           : Row(
+              mainAxisSize: MainAxisSize.max,
+              mainAxisAlignment: MainAxisAlignment.spaceAround,
               children: getLayoutElements(context),
             ),
     );
@@ -73,185 +77,93 @@ class _PaginaInicialState extends State<PaginaInicial> {
 
     return <Widget>[
       //Contenedor de la zona de arriba
-      Flexible(
-          flex: (orientation == Orientation.portrait) ? 3 : 4,
-          child: Column(
-            children: [
-              Flexible(
-                flex: 1,
-                child: Row(
-                  children: [
-                    Align(
-                      child: PopupMenuButton(
-                        itemBuilder: (BuildContext context) {
-                          return <PopupMenuEntry<String>>[
-                            PopupMenuItem<String>(
-                                child: Text("Acerca de"), value: "acercade")
-                          ];
-                        },
-                        onSelected: (String value) {
-                          if (value == "acercade") {
-                            _mostrarAlerta(context);
-                          }
-                        },
-                      ),
-                      alignment: Alignment.centerRight,
-                    )
-                  ],
-                  mainAxisAlignment: (orientation == Orientation.portrait)
-                      ? MainAxisAlignment.end
-                      : MainAxisAlignment.start,
-                ),
-              ),
-              Flexible(
-                  flex: (orientation == Orientation.portrait) ? 3 : 3,
+      _flixible1(orientation),
+      _flixible2(orientation, _pageController),
+      //Contenedor del PageView
+    ];
+  }
+
+  Widget _flixible1(Orientation orientation) {
+    return Flexible(
+        flex: (orientation == Orientation.portrait) ? 3 : 4,
+        child: Column(
+          children: [
+            SizedBox(
+              height: 40,
+            ),
+            Flexible(
+                flex: (orientation == Orientation.portrait) ? 3 : 3,
+                child: GestureDetector(
                   child: Image(
                     image: AssetImage('assets/icon/logo_sin_fondo.png'),
                     height: 150,
                     width: 150,
-                  )),
-              Flexible(
-                  flex: 1,
-                  child: Padding(
-                    child: Text(
-                      "Tap Relax",
-                      style:
-                          TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
-                    ),
-                    padding: EdgeInsets.only(top: 10),
-                  )),
-              Flexible(
-                  child: Padding(
-                    child: DotsIndicator(dotsCount: 3, position: currPag),
-                    padding: EdgeInsets.only(top: 5),
                   ),
-                  flex: 1)
-            ],
-          )),
-      //Contenedor del PageView
-      Flexible(
-          flex: (orientation == Orientation.portrait) ? 7 : 6,
-          child: Stack(children: <Widget>[
-            new Container(
-              child: PageView(
-                controller: _pageController,
-                physics: BouncingScrollPhysics(),
-                children: <Widget>[
-                  Paginas(Colors.blue, "Juego1"),
-                  Paginas(Colors.blueAccent, "Juego2"),
-                  Paginas(Colors.lightBlueAccent, "Juego3"),
-                ],
-                scrollDirection: Axis.horizontal,
-              ),
-              color: Colors.blue[100],
-            ),
-            new Align(
-              child: Card(
-                elevation: 30,
-                shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(15.0),
-                  side: BorderSide(
-                    color: Colors.black,
-                    width: 0.5,
+                  onTap: () {
+                    _mostrarAlerta(context);
+                  },
+                )),
+            Flexible(
+                flex: 1,
+                child: Padding(
+                  child: Text(
+                    "Tap Relax",
+                    style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
                   ),
+                  padding: EdgeInsets.only(top: 10),
+                )),
+            Flexible(
+                child: Padding(
+                  child: DotsIndicator(dotsCount: 3, position: currPag),
+                  padding: EdgeInsets.only(top: 5),
                 ),
-                child: Container(
+                flex: 1)
+          ],
+        ));
+  }
 
-                    //color: Colors.blue[50],
-                    width: 150,
-                    height: 60,
-                    child: Column(children: <Widget>[
-                      Text(
-                        tituloJuego,
-                        style: TextStyle(color: Colors.pink),
-                      ),
-                      Text(descripcionJuego)
-                    ])),
+  Widget _flixible2(Orientation orientation, PageController _pageController) {
+    return Flexible(
+        flex: (orientation == Orientation.portrait) ? 7 : 6,
+        child: Stack(children: <Widget>[
+          new Container(
+            child: PageView(
+              controller: _pageController,
+              physics: BouncingScrollPhysics(),
+              children: <Widget>[
+                Paginas(Colors.blue, "Juego1"),
+                Paginas(Colors.blueAccent, "Juego2"),
+                Paginas(Colors.lightBlueAccent, "Juego3"),
+              ],
+              scrollDirection: Axis.horizontal,
+            ),
+            color: Colors.blue[100],
+          ),
+          new Align(
+            child: Card(
+              elevation: 30,
+              shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(15.0),
+                side: BorderSide(
+                  color: Colors.black,
+                  width: 0.5,
+                ),
               ),
-              alignment: Alignment.bottomCenter,
-            )
-          ]))
-    ];
-  }
-}
+              child: Container(
 
-class Paginas extends StatelessWidget {
-  final Color color;
-  final String pag;
-  const Paginas(this.color, this.pag);
-
-  @override
-  Widget build(BuildContext context) {
-    Orientation orientation = MediaQuery.of(context).orientation;
-
-    return GestureDetector(
-      child: Container(
-        child: DecoratedBox(
-          decoration: BoxDecoration(
-              image: DecorationImage(
-                  fit: BoxFit.contain, image: AssetImage("assets/$pag.jpg"))),
-        ),
-        height: double.infinity,
-        width: double.infinity,
-        margin: (orientation == Orientation.portrait)
-            ? EdgeInsets.only(top: 10, bottom: 20, left: 10)
-            : EdgeInsets.only(top: 10, bottom: 20, left: 20),
-        decoration: BoxDecoration(
-          borderRadius: BorderRadius.circular(20),
-          color: this.color,
-        ),
-      ),
-      onDoubleTap: () {
-        Navigator.of(context).pushNamed(pag);
-      },
-    );
-  }
-}
-
-class AcercaDe extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    return SingleChildScrollView(
-        child: Column(
-      children: [
-        Text(
-          "Tap Relax",
-          textAlign: TextAlign.center,
-          style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
-        ),
-        Padding(
-          child: Image(
-            image: AssetImage('assets/icon/logo_sin_fondo.png'),
-            height: 80,
-            width: 80,
-          ),
-          padding: EdgeInsets.all(7.0),
-        ),
-        Padding(
-          child: Text(
-            "Versión 1.0",
-            textAlign: TextAlign.center,
-            style: TextStyle(fontSize: 10),
-          ),
-          padding: EdgeInsets.all(10.0),
-        ),
-        Text(
-          "Programación y diseño",
-          textAlign: TextAlign.center,
-          style: TextStyle(fontSize: 15),
-        ),
-        Text(
-          "Erick Moreno",
-          textAlign: TextAlign.center,
-          style: TextStyle(fontSize: 15, fontWeight: FontWeight.bold),
-        ),
-        Text(
-          "Armando Gutiérrez",
-          textAlign: TextAlign.center,
-          style: TextStyle(fontSize: 15, fontWeight: FontWeight.bold),
-        ),
-      ],
-      mainAxisSize: MainAxisSize.min,
-    ));
+                  //color: Colors.blue[50],
+                  width: 150,
+                  height: 60,
+                  child: Column(children: <Widget>[
+                    Text(
+                      tituloJuego,
+                      style: TextStyle(color: Colors.pink),
+                    ),
+                    Text(descripcionJuego)
+                  ])),
+            ),
+            alignment: Alignment.bottomCenter,
+          )
+        ]));
   }
 }
