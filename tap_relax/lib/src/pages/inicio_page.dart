@@ -64,13 +64,13 @@ class _PaginaInicialState extends State<PaginaInicial> {
 
         if (currPag == 0.0) {
           tituloJuego = "Juego1";
-          descripcionJuego = "Descripción 1";
+          descripcionJuego = "Revienta las burbujas, intenta relajarte";
         } else if (currPag == 1.0) {
           tituloJuego = "Juego2";
-          descripcionJuego = "Descripción2";
+          descripcionJuego = "Modera tu respiración";
         } else if (currPag == 2.0) {
           tituloJuego = "Juego3";
-          descripcionJuego = "Descripción3";
+          descripcionJuego = "Une los puntos";
         }
       });
     });
