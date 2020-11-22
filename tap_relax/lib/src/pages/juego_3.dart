@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:tap_relax/src/resources/metodos_circulos.dart';
 import 'dart:math';
 import 'package:vibration/vibration.dart';
 
@@ -28,10 +29,6 @@ class _Juego3State extends State<Juego3> {
         title: Text("Juego 3: Une los puntos"),
         centerTitle: true,
       ),
-      /*body: Column(
-        //children: _inicioJuego3(context),
-        children: [for (var c in union) Text(c.toString())],
-      ),*/
       body: Stack(
         children: _inicioJuego3(context),
       ),
@@ -72,11 +69,11 @@ class _Juego3State extends State<Juego3> {
   }
 
   List<Widget> _inicioJuego3(BuildContext context) {
-    List<Widget> listaCirculosWgt = [];
+    List<Widget> _listaCirculosWgt = [];
     Orientation orientation = MediaQuery.of(context).orientation;
 
     for (int i = 0; i < circulos.length; i++) {
-      listaCirculosWgt.add(Positioned(
+      _listaCirculosWgt.add(Positioned(
         left: (orientation == Orientation.portrait)
             ? circulos[i].x
             : circulos[i].y,
@@ -94,7 +91,7 @@ class _Juego3State extends State<Juego3> {
           ),
           onTap: () {
             if (this.circulos[i].unido == false) {
-              Vibration.vibrate(duration: 1000);
+              Vibration.vibrate(duration: 50);
               if (union.length < 2) {
                 union.add(this.circulos[i]);
               }
@@ -105,22 +102,8 @@ class _Juego3State extends State<Juego3> {
       ));
     }
 
-    return listaCirculosWgt;
+    return _listaCirculosWgt;
   }
 
   void linea() {}
-}
-
-class Circulo {
-  double x;
-  double y;
-  double r;
-  bool unido = false;
-
-  Circulo(this.x, this.y, this.r);
-
-  double distanciaGaussiana(double xx, double yy) =>
-      sqrt((this.x - xx) * (this.x - xx) + (this.y - yy) * (this.y - yy));
-
-  String toString() => "x: " + this.x.toString() + " y: " + this.y.toString();
 }

@@ -18,16 +18,20 @@ class _Juego2State extends State<Juego2> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        body: Stack(
-          children: [
-            _inicioJuego1(),
-          ],
+      appBar: AppBar(
+        leading: IconButton(
+          icon: Icon(Icons.arrow_back),
+          onPressed: () => Navigator.of(context).pop(),
         ),
-        floatingActionButton: FloatingActionButton(
-            child: Icon(Icons.arrow_back),
-            onPressed: () {
-              Navigator.pop(context);
-            }));
+        title: Text("Juego 2: Respiración"),
+        centerTitle: true,
+      ),
+      body: Stack(
+        children: [
+          _inicioJuego1(),
+        ],
+      ),
+    );
   }
 
   Widget _inicioJuego1() {
