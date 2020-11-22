@@ -11,7 +11,7 @@ class PaginaInicial extends StatefulWidget {
 class _PaginaInicialState extends State<PaginaInicial> {
   var currPag = 0.0;
   String tituloJuego = "Juego1";
-  String descripcionJuego = "Descripción 1";
+  String descripcionJuego = "Revienta las burbujas";
 
   @override
   Widget build(BuildContext context) {
@@ -64,7 +64,7 @@ class _PaginaInicialState extends State<PaginaInicial> {
 
         if (currPag == 0.0) {
           tituloJuego = "Juego1";
-          descripcionJuego = "Revienta las burbujas, intenta relajarte";
+          descripcionJuego = "Revienta las burbujas";
         } else if (currPag == 1.0) {
           tituloJuego = "Juego2";
           descripcionJuego = "Modera tu respiración";
@@ -145,15 +145,15 @@ class _PaginaInicialState extends State<PaginaInicial> {
               shape: RoundedRectangleBorder(
                 borderRadius: BorderRadius.circular(15.0),
                 side: BorderSide(
-                  color: Colors.black,
+                  color: Colors.white,
                   width: 0.5,
                 ),
               ),
               child: Container(
 
                   //color: Colors.blue[50],
-                  width: 150,
-                  height: 60,
+                  width: 160,
+                  height: 50,
                   child: Column(children: <Widget>[
                     Text(
                       tituloJuego,
