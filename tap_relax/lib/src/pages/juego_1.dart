@@ -1,6 +1,8 @@
 import 'dart:math';
 
+import 'package:audioplayers/audioplayers.dart';
 import 'package:flutter/material.dart';
+import 'package:audioplayers/audio_cache.dart';
 import 'package:tap_relax/src/resources/metodos_circulos.dart';
 
 class Juego1 extends StatefulWidget {
@@ -9,6 +11,9 @@ class Juego1 extends StatefulWidget {
 }
 
 class _Juego1State extends State<Juego1> {
+  final audioName = "pop.mp3";
+  AudioPlayer audioplayer;
+  AudioCache audioCache;
   List<Circulo> circulos = [];
   List<double> distancias = [];
   List<Color> _color = [];
@@ -17,6 +22,13 @@ class _Juego1State extends State<Juego1> {
   static const int numeroCirculos = 15;
   static const double radio = 40.0;
   BorderRadiusGeometry _borderRadius = BorderRadius.circular(100.0);
+
+  @override
+  void initState() {
+    super.initState();
+    audioplayer = AudioPlayer();
+    audioCache = AudioCache(fixedPlayer: audioplayer);
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -96,16 +108,17 @@ class _Juego1State extends State<Juego1> {
                   BoxDecoration(borderRadius: _borderRadius, color: _color[i]),
             ),
             onTap: () {
-              this.circulos.removeAt(i);
-              this._color.removeAt(i);
-              this.distancias.removeAt(i);
-              setState(() {});
+              setState(() {
+                audioCache.play(audioName);
+                this.circulos.removeAt(i);
+                this._color.removeAt(i);
+                this.distancias.removeAt(i);
+              });
               // _rebentar(context, i);
               // _agregarBurbuja(context);
             }),
       ));
     }
-
     return _listaCirculosWgt;
   }
 }
