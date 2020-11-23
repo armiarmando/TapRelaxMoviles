@@ -38,10 +38,24 @@ class AcercaDe extends StatelessWidget {
           style: TextStyle(fontSize: 15, fontWeight: FontWeight.bold),
         ),
         Text(
+          "correoelectronico@gmail.com",
+          textAlign: TextAlign.center,
+          style: TextStyle(fontSize: 14),
+        ),
+        Text(
           "Armando Gutiérrez",
           textAlign: TextAlign.center,
           style: TextStyle(fontSize: 15, fontWeight: FontWeight.bold),
         ),
+        Text(
+          "gutierrezmartinezjosearmando@gmail.com",
+          textAlign: TextAlign.center,
+          style: TextStyle(fontSize: 14),
+        ),
+        SizedBox(
+          height: 20,
+        ),
+        Icon(Icons.info_outline)
       ],
       mainAxisSize: MainAxisSize.min,
     ));

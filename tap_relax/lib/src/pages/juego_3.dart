@@ -13,7 +13,7 @@ class _Juego3State extends State<Juego3> {
   List<double> distancias = [];
   List<Circulo> union = [];
   BorderRadiusGeometry _borderRadius = BorderRadius.circular(100.0);
-  Color _color = Colors.blue[400];
+  Color _color = Colors.tealAccent[400];
   static const int numeroCirculos = 15;
   static const double radio = 40.0;
 

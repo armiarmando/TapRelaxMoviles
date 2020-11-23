@@ -39,7 +39,7 @@ class _Juego1State extends State<Juego1> {
           icon: Icon(Icons.arrow_back),
           onPressed: () => Navigator.of(context).pop(),
         ),
-        title: Text("Juego 1 Desestresol xd xd"),
+        title: Text("Revienta las burbujas"),
         centerTitle: true,
       ),
       body: Stack(
@@ -104,8 +104,10 @@ class _Juego1State extends State<Juego1> {
               curve: Curves.easeInOutCirc,
               width: circulos[i].r,
               height: circulos[i].r,
-              decoration:
-                  BoxDecoration(borderRadius: _borderRadius, color: _color[i]),
+              decoration: BoxDecoration(
+                borderRadius: _borderRadius,
+                color: _color[i],
+              ),
             ),
             onTap: () {
               setState(() {
