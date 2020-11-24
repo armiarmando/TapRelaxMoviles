@@ -1,6 +1,6 @@
 import 'package:dots_indicator/dots_indicator.dart';
 import 'package:flutter/material.dart';
-import 'package:tap_relax/src/resources/acerca_de.dart';
+import 'package:tap_relax/src/resources/informacion.dart';
 import 'package:tap_relax/src/resources/paginas.dart';
 
 class PaginaInicial extends StatefulWidget {
@@ -12,7 +12,7 @@ class _PaginaInicialState extends State<PaginaInicial> {
   var currPag = 0.0;
   String tituloJuego = "Juego1";
   String descripcionJuego = "Revienta las burbujas";
-
+  Informacion info = Informacion.logo();
   @override
   Widget build(BuildContext context) {
     return Scaffold(body: _pageView(context));
@@ -31,23 +31,6 @@ class _PaginaInicialState extends State<PaginaInicial> {
               mainAxisAlignment: MainAxisAlignment.spaceAround,
               children: getLayoutElements(context),
             ),
-    );
-  }
-
-  void _mostrarAlerta(BuildContext context) {
-    showDialog(
-      context: context,
-      builder: (context) {
-        return AlertDialog(
-          content: AcercaDe(),
-          actions: [
-            IconButton(
-                icon: Icon(Icons.check),
-                onPressed: () => Navigator.pop(context))
-          ],
-          elevation: 24.0,
-        );
-      },
     );
   }
 
@@ -99,7 +82,7 @@ class _PaginaInicialState extends State<PaginaInicial> {
                       width: 100,
                     ),
                     onTap: () {
-                      _mostrarAlerta(context);
+                      info.acercade(context);
                     },
                   )),
               Flexible(
@@ -132,9 +115,9 @@ class _PaginaInicialState extends State<PaginaInicial> {
               controller: _pageController,
               physics: BouncingScrollPhysics(),
               children: <Widget>[
-                Paginas(Colors.blue, "Juego1"),
-                Paginas(Colors.blueAccent, "Juego2"),
-                Paginas(Colors.lightBlueAccent, "Juego3"),
+                Hero(tag: 'hero1', child: Paginas(Colors.white, "Juego1")),
+                Hero(tag: 'hero2', child: Paginas(Colors.white, "Juego2")),
+                Hero(tag: 'hero3', child: Paginas(Colors.white, "Juego3")),
               ],
               scrollDirection: Axis.horizontal,
             ),

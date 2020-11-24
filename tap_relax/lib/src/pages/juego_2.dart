@@ -3,6 +3,7 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:audioplayers/audio_cache.dart';
 import 'package:audioplayers/audioplayers.dart';
+import 'package:tap_relax/src/resources/informacion.dart';
 
 class Juego2 extends StatefulWidget {
   @override
@@ -18,13 +19,24 @@ class _Juego2State extends State<Juego2> {
   Color _color = Colors.tealAccent[400];
   Random random = Random();
   String _mensaje = "Inicia";
+  String informacion =
+      "El objetivo del juego es hacerla crecer y luego dejar que se haga pequeña.\n\nCuando sientas ansiedad o estrés puedes acudir a este juego para interactuar con el, inconscientemente el usuario sentirá que esa esfera es la manera en que él respira, y al hacer que se haga grande y luego pequeña impactará en su manera de respirar haciendo que se relaje de manera significante.\n\n";
 
   BorderRadiusGeometry _borderRadius = BorderRadius.circular(200.0);
 
   @override
   Widget build(BuildContext context) {
+    Informacion info = Informacion("Respiración", informacion);
     return Scaffold(
         appBar: AppBar(
+          actions: [
+            IconButton(
+              icon: Icon(Icons.info_outline),
+              onPressed: () {
+                info.card(context);
+              },
+            ),
+          ],
           leading: IconButton(
             icon: Icon(Icons.arrow_back),
             onPressed: () => Navigator.of(context).pop(),
@@ -32,8 +44,11 @@ class _Juego2State extends State<Juego2> {
           title: Text("Juego 2: Respiración"),
           centerTitle: true,
         ),
-        body: Center(
-          child: _inicioJuego2(),
+        body: Hero(
+          tag: 'hero2',
+          child: Center(
+            child: _inicioJuego2(),
+          ),
         ));
   }
 

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:tap_relax/src/resources/informacion.dart';
 import 'dart:math';
 import 'package:vibration/vibration.dart';
 import 'package:tap_relax/src/resources/metodos_circulos.dart';
@@ -10,9 +11,11 @@ class Juego3 extends StatefulWidget {
 
 class _Juego3State extends State<Juego3> {
   BorderRadiusGeometry _borderRadius = BorderRadius.circular(100.0);
-  Color _color = Colors.blue[400];
+  Color _color = Colors.blue[300];
   static const int numeroCirculos = 15;
   static const double radio = 40.0;
+  String informacion =
+      "El juego consiste en unir puntos todos los puntos que hay en la pantalla.\n\nCada que el usuario termine de unir los puntos aparecerá una nueva pantalla con nuevos puntos en diferentes posiciones.\n\n";
 
   List<Circulo> circulos = [];
   List<Circulo> union = [];
@@ -20,9 +23,18 @@ class _Juego3State extends State<Juego3> {
 
   @override
   Widget build(BuildContext context) {
+    Informacion info = Informacion("Revienta Burbujas", informacion);
     _creaCirculos(context);
     return Scaffold(
       appBar: AppBar(
+        actions: [
+          IconButton(
+            icon: Icon(Icons.info_outline),
+            onPressed: () {
+              info.card(context);
+            },
+          ),
+        ],
         leading: IconButton(
           icon: Icon(Icons.arrow_back),
           onPressed: () => Navigator.of(context).pop(),
@@ -33,41 +45,44 @@ class _Juego3State extends State<Juego3> {
       // body: Column(
       //   children: [for (var c in union) Text(c.toString())],
       // ),
-      body: Container(
-        height: MediaQuery.of(context).size.height - kToolbarHeight,
-        width: MediaQuery.of(context).size.width,
-        child: Stack(children: [
-          for (Circulo circ in circulos)
-            new Positioned(
-              left: circ.x,
-              top: circ.y,
-              child: GestureDetector(
-                child: AnimatedContainer(
-                  duration: Duration(milliseconds: 1),
-                  curve: Curves.easeInOutCirc,
-                  width: circ.r,
-                  height: circ.r,
-                  decoration:
-                      BoxDecoration(borderRadius: _borderRadius, color: _color),
+      body: Hero(
+        tag: 'hero3',
+        child: Container(
+          height: MediaQuery.of(context).size.height - kToolbarHeight,
+          width: MediaQuery.of(context).size.width,
+          child: Stack(children: [
+            for (Circulo circ in circulos)
+              new Positioned(
+                left: circ.x,
+                top: circ.y,
+                child: GestureDetector(
+                  child: AnimatedContainer(
+                    duration: Duration(milliseconds: 1),
+                    curve: Curves.easeInOutCirc,
+                    width: circ.r,
+                    height: circ.r,
+                    decoration: BoxDecoration(
+                        borderRadius: _borderRadius, color: _color),
+                  ),
+                  onTap: () {
+                    Vibration.vibrate(duration: 150);
+                    setState(() {
+                      if (union.contains(circ) == false) {
+                        union.add(circ);
+                      }
+                      if (union.length == circulos.length) {
+                        circulos.clear();
+                        union.clear();
+                      }
+                    });
+                  },
                 ),
-                onTap: () {
-                  Vibration.vibrate(duration: 150);
-                  setState(() {
-                    if (union.contains(circ) == false) {
-                      union.add(circ);
-                    }
-                    if (union.length == circulos.length) {
-                      circulos.clear();
-                      union.clear();
-                    }
-                  });
-                },
               ),
+            new CustomPaint(
+              painter: DibujaUnion(union),
             ),
-          new CustomPaint(
-            painter: DibujaUnion(union),
-          ),
-        ]),
+          ]),
+        ),
       ),
     );
   }
@@ -113,7 +128,7 @@ class DibujaUnion extends CustomPainter {
   @override
   void paint(Canvas canvas, Size size) {
     final paint = Paint()
-      ..color = Colors.blue[400]
+      ..color = Colors.blue[300]
       ..strokeWidth = 4.0;
     paint.style = PaintingStyle.stroke;
     double radio = this.circulosUnir[0].r * 0.5;

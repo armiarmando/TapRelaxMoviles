@@ -3,6 +3,7 @@ import 'dart:math';
 import 'package:audioplayers/audioplayers.dart';
 import 'package:flutter/material.dart';
 import 'package:audioplayers/audio_cache.dart';
+import 'package:tap_relax/src/resources/informacion.dart';
 import 'package:tap_relax/src/resources/metodos_circulos.dart';
 
 class Juego1 extends StatefulWidget {
@@ -19,6 +20,8 @@ class _Juego1State extends State<Juego1> {
   List<Color> _color = [];
   List<Circulo> nuevoCirculos = [];
   Random random = Random();
+  String informacion =
+      "El objetivo de este juego es reventar burbujas.\n\nUna vez que empieces a reventar burbujas y a visualizar la variedad de colores que tiene el juego, empezarás a enfocar esa ansiedad o estrés en reventar las burbujas, causando mayor relajación en ti mismo.\n\n";
   static const int numeroCirculos = 15;
   static const double radio = 40.0;
   BorderRadiusGeometry _borderRadius = BorderRadius.circular(100.0);
@@ -32,9 +35,19 @@ class _Juego1State extends State<Juego1> {
 
   @override
   Widget build(BuildContext context) {
+    Informacion info = Informacion("Revienta Burbujas", informacion);
+
     _creaCirculos(context);
     return Scaffold(
       appBar: AppBar(
+        actions: [
+          IconButton(
+            icon: Icon(Icons.info_outline),
+            onPressed: () {
+              info.card(context);
+            },
+          ),
+        ],
         leading: IconButton(
           icon: Icon(Icons.arrow_back),
           onPressed: () => Navigator.of(context).pop(),
@@ -42,8 +55,11 @@ class _Juego1State extends State<Juego1> {
         title: Text("Revienta las burbujas"),
         centerTitle: true,
       ),
-      body: Stack(
-        children: _inicioJuego1(context),
+      body: Hero(
+        tag: 'hero1',
+        child: Stack(
+          children: _inicioJuego1(context),
+        ),
       ),
     );
   }
