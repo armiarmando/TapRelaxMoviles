@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:tap_relax/src/resources/metodos_circulos.dart';
 import 'dart:math';
 import 'package:vibration/vibration.dart';
+import 'package:tap_relax/src/resources/metodos_circulos.dart';
 
 class Juego3 extends StatefulWidget {
   @override
@@ -9,13 +9,14 @@ class Juego3 extends StatefulWidget {
 }
 
 class _Juego3State extends State<Juego3> {
-  List<Circulo> circulos = [];
-  List<double> distancias = [];
-  List<Circulo> union = [];
   BorderRadiusGeometry _borderRadius = BorderRadius.circular(100.0);
-  Color _color = Colors.tealAccent[400];
+  Color _color = Colors.blue[400];
   static const int numeroCirculos = 15;
   static const double radio = 40.0;
+
+  List<Circulo> circulos = [];
+  List<Circulo> union = [];
+  var i;
 
   @override
   Widget build(BuildContext context) {
@@ -29,8 +30,44 @@ class _Juego3State extends State<Juego3> {
         title: Text("Juego 3: Une los puntos"),
         centerTitle: true,
       ),
-      body: Stack(
-        children: _inicioJuego3(context),
+      // body: Column(
+      //   children: [for (var c in union) Text(c.toString())],
+      // ),
+      body: Container(
+        height: MediaQuery.of(context).size.height - kToolbarHeight,
+        width: MediaQuery.of(context).size.width,
+        child: Stack(children: [
+          for (Circulo circ in circulos)
+            new Positioned(
+              left: circ.x,
+              top: circ.y,
+              child: GestureDetector(
+                child: AnimatedContainer(
+                  duration: Duration(milliseconds: 1),
+                  curve: Curves.easeInOutCirc,
+                  width: circ.r,
+                  height: circ.r,
+                  decoration:
+                      BoxDecoration(borderRadius: _borderRadius, color: _color),
+                ),
+                onTap: () {
+                  Vibration.vibrate(duration: 150);
+                  setState(() {
+                    if (union.contains(circ) == false) {
+                      union.add(circ);
+                    }
+                    if (union.length == circulos.length) {
+                      circulos.clear();
+                      union.clear();
+                    }
+                  });
+                },
+              ),
+            ),
+          new CustomPaint(
+            painter: DibujaUnion(union),
+          ),
+        ]),
       ),
     );
   }
@@ -64,46 +101,36 @@ class _Juego3State extends State<Juego3> {
 
     if (empalme == false) {
       circulos.add(nuevoCirculo);
-      distancias.add(distancia);
+    }
+  }
+}
+
+class DibujaUnion extends CustomPainter {
+  List<Circulo> circulosUnir;
+
+  DibujaUnion(this.circulosUnir);
+
+  @override
+  void paint(Canvas canvas, Size size) {
+    final paint = Paint()
+      ..color = Colors.blue[400]
+      ..strokeWidth = 4.0;
+    paint.style = PaintingStyle.stroke;
+    double radio = this.circulosUnir[0].r * 0.5;
+
+    var path = new Path();
+
+    if (circulosUnir.length > 1) {
+      path.moveTo(circulosUnir[0].x + radio, circulosUnir[0].y + radio);
+      for (var i = 1; i < circulosUnir.length; i++) {
+        path.lineTo(circulosUnir[i].x + radio, circulosUnir[i].y + radio);
+      }
+      canvas.drawPath(path, paint);
     }
   }
 
-  List<Widget> _inicioJuego3(BuildContext context) {
-    List<Widget> _listaCirculosWgt = [];
-    Orientation orientation = MediaQuery.of(context).orientation;
-
-    for (int i = 0; i < circulos.length; i++) {
-      _listaCirculosWgt.add(Positioned(
-        left: (orientation == Orientation.portrait)
-            ? circulos[i].x
-            : circulos[i].y,
-        top: (orientation == Orientation.portrait)
-            ? circulos[i].y
-            : circulos[i].x,
-        child: GestureDetector(
-          child: AnimatedContainer(
-            duration: Duration(milliseconds: 1),
-            curve: Curves.easeInOutCirc,
-            width: circulos[i].r,
-            height: circulos[i].r,
-            decoration:
-                BoxDecoration(borderRadius: _borderRadius, color: _color),
-          ),
-          onTap: () {
-            if (this.circulos[i].unido == false) {
-              Vibration.vibrate(duration: 50);
-              if (union.length < 2) {
-                union.add(this.circulos[i]);
-              }
-              linea();
-            }
-          },
-        ),
-      ));
-    }
-
-    return _listaCirculosWgt;
+  @override
+  bool shouldRepaint(CustomPainter oldDelegate) {
+    return true;
   }
-
-  void linea() {}
 }

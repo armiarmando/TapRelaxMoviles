@@ -38,7 +38,7 @@ class AcercaDe extends StatelessWidget {
           style: TextStyle(fontSize: 15, fontWeight: FontWeight.bold),
         ),
         Text(
-          "correoelectronico@gmail.com",
+          "aleexmorenoan@gmail.com",
           textAlign: TextAlign.center,
           style: TextStyle(fontSize: 14),
         ),

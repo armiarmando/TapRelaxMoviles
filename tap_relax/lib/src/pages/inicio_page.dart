@@ -86,39 +86,40 @@ class _PaginaInicialState extends State<PaginaInicial> {
   Widget _flixible1(Orientation orientation) {
     return Flexible(
         flex: (orientation == Orientation.portrait) ? 3 : 4,
-        child: Column(
-          children: [
-            SizedBox(
-              height: 40,
-            ),
-            Flexible(
-                flex: (orientation == Orientation.portrait) ? 3 : 3,
-                child: GestureDetector(
-                  child: Image(
-                    image: AssetImage('assets/icon/logo_sin_fondo.png'),
-                    height: 150,
-                    width: 150,
+        child: Center(
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              Flexible(
+                  flex: (orientation == Orientation.portrait) ? 3 : 3,
+                  child: GestureDetector(
+                    child: Image(
+                      image: AssetImage('assets/icon/logo_sin_fondo.png'),
+                      height: 100,
+                      width: 100,
+                    ),
+                    onTap: () {
+                      _mostrarAlerta(context);
+                    },
+                  )),
+              Flexible(
+                  flex: 1,
+                  child: Padding(
+                    child: Text(
+                      "Tap Relax",
+                      style:
+                          TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+                    ),
+                    padding: EdgeInsets.only(top: 10),
+                  )),
+              Flexible(
+                  child: Padding(
+                    child: DotsIndicator(dotsCount: 3, position: currPag),
+                    padding: EdgeInsets.only(top: 5),
                   ),
-                  onTap: () {
-                    _mostrarAlerta(context);
-                  },
-                )),
-            Flexible(
-                flex: 1,
-                child: Padding(
-                  child: Text(
-                    "Tap Relax",
-                    style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
-                  ),
-                  padding: EdgeInsets.only(top: 10),
-                )),
-            Flexible(
-                child: Padding(
-                  child: DotsIndicator(dotsCount: 3, position: currPag),
-                  padding: EdgeInsets.only(top: 5),
-                ),
-                flex: 1)
-          ],
+                  flex: 1)
+            ],
+          ),
         ));
   }
 
@@ -150,17 +151,17 @@ class _PaginaInicialState extends State<PaginaInicial> {
                 ),
               ),
               child: Container(
-
-                  //color: Colors.blue[50],
                   width: 160,
-                  height: 50,
-                  child: Column(children: <Widget>[
-                    Text(
-                      tituloJuego,
-                      style: TextStyle(color: Colors.pink),
-                    ),
-                    Text(descripcionJuego)
-                  ])),
+                  height: 40,
+                  child: Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: <Widget>[
+                        Text(
+                          tituloJuego,
+                          style: TextStyle(color: Colors.pink),
+                        ),
+                        Text(descripcionJuego)
+                      ])),
             ),
             alignment: Alignment.bottomCenter,
           )
