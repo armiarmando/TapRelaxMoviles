@@ -3,6 +3,7 @@ import 'package:tap_relax/src/resources/informacion.dart';
 import 'dart:math';
 import 'package:vibration/vibration.dart';
 import 'package:tap_relax/src/resources/metodos_circulos.dart';
+import 'package:flutter/services.dart';
 
 class Juego3 extends StatefulWidget {
   @override
@@ -15,7 +16,7 @@ class _Juego3State extends State<Juego3> {
   static const int numeroCirculos = 15;
   static const double radio = 40.0;
   String informacion =
-      "El juego consiste en unir puntos todos los puntos que hay en la pantalla.\n\nCada que el usuario termine de unir los puntos aparecerá una nueva pantalla con nuevos puntos en diferentes posiciones.\n\n";
+      "El juego consiste en unir todos los puntos que hay en la pantalla.\n\nCada que el usuario termine de unir los puntos aparecerá una nueva pantalla con nuevos puntos en diferentes posiciones.\n\n";
 
   List<Circulo> circulos = [];
   List<Circulo> union = [];

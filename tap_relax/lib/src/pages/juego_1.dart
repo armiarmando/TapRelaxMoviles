@@ -1,5 +1,5 @@
 import 'dart:math';
-
+import 'package:flutter/services.dart';
 import 'package:audioplayers/audioplayers.dart';
 import 'package:flutter/material.dart';
 import 'package:audioplayers/audio_cache.dart';
@@ -108,12 +108,8 @@ class _Juego1State extends State<Juego1> {
 
     for (int i = 0; i < circulos.length; i++) {
       _listaCirculosWgt.add(Positioned(
-        left: (orientation == Orientation.portrait)
-            ? circulos[i].x
-            : circulos[i].y,
-        top: (orientation == Orientation.portrait)
-            ? circulos[i].y
-            : circulos[i].x,
+        left: circulos[i].x,
+        top: circulos[i].y,
         child: GestureDetector(
             child: AnimatedContainer(
               duration: Duration(milliseconds: 100),
